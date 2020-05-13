@@ -1,0 +1,40 @@
+h1 {
+    text-align: center;
+}
+
+.btn {
+    height: 50px;
+    width: 50px;
+    /* background-size: cover; */
+    border: 0;
+    border-radius: 5px;
+}
+.btn:hover {
+    background-color: rgb(95, 95, 95);
+}
+.start {    
+    background-image: url(img/start.png);
+}
+.pause {    
+    background-image: url(img/pause.png);
+}
+.stop {    
+    background-image: url(img/stop.png);
+}
+.reset {    
+    background-image: url(img/reset.png);
+}
+
+.chevron {
+    height: 24px;
+    width: 24px;
+    border: 0;
+    background-size: cover;
+    border-radius: 5px;
+}
+.increase {
+    background-image: url(img/increase.png);
+}
+.decrease {
+    background-image: url(img/decrease.png);
+}
