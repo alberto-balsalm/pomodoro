@@ -12,6 +12,9 @@ h1 {
 .btn:hover {
     background-color: rgb(95, 95, 95);
 }
+.disabled {
+    pointer-events: none;
+}
 .start {    
     background-image: url(img/start.png);
 }
