@@ -1,8 +1,9 @@
 let countdown
-let sessionLength = 120
+let sessionLength = 1500
 let timeLeft = sessionLength
-let breakLength = 60
+let breakLength = 300
 let countdownType = "session"
+let timerOff = "true"
 
 const pauseButton = document.querySelector('.pause.btn')
 const stopButton = document.querySelector('.stop.btn')
@@ -19,6 +20,7 @@ const breakLengthLabel = document.querySelector(".break.length")
 
 
 activateButtons()
+
 activateChevrons()
 
 
@@ -56,22 +58,22 @@ function displayTimeLeft(seconds) {
     document.title = display;
 }
 
-/* function activateStartBtn() {    
-    startButton.addEventListener('click', startCountdown)
-} */
-
 function activateButtons() {
     startButton.addEventListener('click', startCountdown)
     pauseButton.addEventListener('click', pause)
     stopButton.addEventListener('click', stop)
+    resetButton.addEventListener('click', reset)
 }
 
 function startCountdown() {
-    timer(timeLeft)
+    if(timerOff) timer(sessionLength)
+    else timer(timeLeft)
     //startButton.removeEventListener('click', startCountdown)
     startButton.classList.add('disabled')
     pauseButton.classList.remove('disabled')
     stopButton.classList.remove('disabled')
+    resetButton.classList.remove('disabled')
+    timerOff = false
 }
 
 function pause() {
@@ -88,7 +90,22 @@ function stop() {
     countdownType = "session"
     document.title = "Pomodoro clock" //displayTimeLeft shows time left on a tab
     stopButton.classList.add('disabled')
-    startButton.classList.remove('disabled')
+    pauseButton.classList.add('disabled')
+    startButton.classList.remove('disabled')  
+    timerOff = true
+}
+
+function reset() {
+    clearInterval(countdown)
+    sessionLength = 1500
+    breakLength = 300
+    displayTimeLeft(sessionLength)
+    sessionLengthLabel.textContent = sessionLength / 60
+    breakLengthLabel.textContent = breakLength / 60
+    timerOff = true
+    startButton.classList.remove('disabled') 
+    stopButton.classList.add('disabled')
+    pauseButton.classList.add('disabled')    
 }
 
 function activateChevrons() {
@@ -99,29 +116,33 @@ function activateChevrons() {
 }
 
 function increaseLength() {
-    if(this.classList[2] == "session") {
-        if(sessionLength + 60 <= 3600) {
-            sessionLength += 60
-            sessionLengthLabel.textContent = sessionLength / 60
-        }
-    } else if(this.classList[2] == "break") {
-        if(breakLength + 60 <= 3600) {
-            breakLength += 60
-            breakLengthLabel.textContent = breakLength / 60
+    if(timerOff){
+        if(this.classList[2] == "session") {
+            if(sessionLength + 60 <= 3600) {
+                sessionLength += 60
+                sessionLengthLabel.textContent = sessionLength / 60
+            }
+        } else if(this.classList[2] == "break") {
+            if(breakLength + 60 <= 3600) {
+                breakLength += 60
+                breakLengthLabel.textContent = breakLength / 60
+            }
         }
     }
 }
 
 function decreaseLength() {
-    if(this.classList[2] == "session") {
-        if(sessionLength - 60 >= 60) {
-            sessionLength -= 60
-            sessionLengthLabel.textContent = sessionLength / 60
-        }
-    } else if(this.classList[2] == "break") {
-        if(breakLength - 60 >= 60) {
-            breakLength -= 60
-            breakLengthLabel.textContent = breakLength / 60
-        }
-    }    
+    if(timerOff) {
+        if(this.classList[2] == "session") {
+            if(sessionLength - 60 >= 60) {
+                sessionLength -= 60
+                sessionLengthLabel.textContent = sessionLength / 60
+            }
+        } else if(this.classList[2] == "break") {
+            if(breakLength - 60 >= 60) {
+                breakLength -= 60
+                breakLengthLabel.textContent = breakLength / 60
+            }
+        }    
+    }
 }
