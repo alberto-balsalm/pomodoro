@@ -18,9 +18,7 @@ const sessionLengthLabel = document.querySelector(".session.length")
 const breakLengthLabel = document.querySelector(".break.length") 
 
 
-
 activateButtons()
-
 activateChevrons()
 
 
@@ -52,7 +50,7 @@ function displayTimeLeft(seconds) {
     const minutes = Math.floor(seconds / 60)
     const remSeconds = seconds % 60
     const display = `${minutes}:${remSeconds < 10 ? 0 : ''}${remSeconds}`
-    const clock = document.querySelector('h2')
+    const clock = document.querySelector('h1.clock')
 
     clock.textContent = display;
     document.title = display;
@@ -68,7 +66,9 @@ function activateButtons() {
 function startCountdown() {
     if(timerOff) timer(sessionLength)
     else timer(timeLeft)
-    //startButton.removeEventListener('click', startCountdown)
+
+    if(countdownType == "session") info.textContent = "Stop looking at this and get to work!"
+    else if(countdownType == "break") info.textContent = "Now it's time for a break!"
     startButton.classList.add('disabled')
     pauseButton.classList.remove('disabled')
     stopButton.classList.remove('disabled')
@@ -81,6 +81,7 @@ function pause() {
     pauseButton.classList.add('disabled')
     startButton.classList.remove('disabled')
     document.title += " (paused)"
+    info.textContent = "Paused"
 }
 
 function stop() {
@@ -93,6 +94,7 @@ function stop() {
     pauseButton.classList.add('disabled')
     startButton.classList.remove('disabled')  
     timerOff = true
+    info.textContent = ""
 }
 
 function reset() {
@@ -105,7 +107,8 @@ function reset() {
     timerOff = true
     startButton.classList.remove('disabled') 
     stopButton.classList.add('disabled')
-    pauseButton.classList.add('disabled')    
+    pauseButton.classList.add('disabled')
+    info.textContent = ""   
 }
 
 function activateChevrons() {

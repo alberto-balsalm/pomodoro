@@ -3,6 +3,7 @@
     <title>Pomodoro clock</title>
     <meta charset="UTF-8">
     <link href="style.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet"> 
 </head>
 <body>
     <header>
@@ -10,8 +11,8 @@
     </header>
 
     <div class="timer">
-        <h2 class="clock">25:00</h2>
-        <div class="info"></div>
+        <h1 class="clock">25:00</h1>
+        <div class="info"> </div>
 
         <button class="start btn"></button>
         <button class="pause btn disabled"></button>
@@ -19,14 +20,22 @@
         <button class="reset btn disabled"></button>
     </div>
     <div class="details">
-        <p>Session</p>
-        <button class="increase chevron session"></button>
-        <span class="session length">25</span>
-        <button class="decrease chevron session"></button>
-        <p>Break</p>
-        <button class="increase chevron break"></button>
-        <span class="break length">5</span>
-        <button class="decrease chevron break"></button>
+        <div class="row">
+            <p>Session</p>
+            <p>Break</p>
+        </div>
+
+        <div class="row">
+            <button class="increase chevron session"></button>
+            <span class="session length">25</span>
+            <button class="decrease chevron session"></button>
+            
+            <button class="increase chevron break"></button>
+            <span class="break length">5</span>
+            <button class="decrease chevron break"></button>
+        </div>
+        
+
     </div>
 
     <script src="script.js"></script>
