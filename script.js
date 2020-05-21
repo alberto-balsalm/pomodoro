@@ -4,6 +4,8 @@ let timeLeft = sessionLength
 let breakLength = 300
 let countdownType = "session"
 let timerOff = "true"
+let startSound = new Audio("sounds/start.mp3")
+let breakSound = new Audio("sounds/break.mp3")
 
 const pauseButton = document.querySelector('.pause.btn')
 const stopButton = document.querySelector('.stop.btn')
@@ -24,10 +26,18 @@ activateChevrons()
 
 function timer(seconds) {
     //this isn't necessary since start button is disabled when timer's on
-    clearInterval(countdown) //clear any running timers
-
+    clearInterval(countdown) //clear any running timers  
     seconds++ //setIntervals starts after a second
     const then = Date.now() + seconds * 1000    
+
+    if(countdownType == "session") {
+        info.textContent = "Working ..."
+        startSound.play()
+    } else if(countdownType == "break") {
+        info.textContent = "Time for a break!"
+        breakSound.play()
+    }
+
     countdown = setInterval(() => {
         const now = Date.now()
         const secondsLeft = parseInt(Math.round((then - now) / 1000))       
@@ -67,8 +77,13 @@ function startCountdown() {
     if(timerOff) timer(sessionLength)
     else timer(timeLeft)
 
-    if(countdownType == "session") info.textContent = "Stop looking at this and get to work!"
-    else if(countdownType == "break") info.textContent = "Now it's time for a break!"
+/*     if(countdownType == "session") {
+        info.textContent = "Working ..."
+        startSound.play()
+    } else if(countdownType == "break") {
+        info.textContent = "Time for a break!"
+        breakSound.play()
+    } */
     startButton.classList.add('disabled')
     pauseButton.classList.remove('disabled')
     stopButton.classList.remove('disabled')
